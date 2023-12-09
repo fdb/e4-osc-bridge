@@ -5,3 +5,4 @@ log*.txt
 .xyz
 event-log.txt
 test-logs/
+recordings/
