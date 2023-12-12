@@ -10,7 +10,7 @@ It uses [open-e4-client](https://pypi.org/project/open-e4-client/) and [Python O
 
 - Install dependencies:
 ```
-pip install open-e4-client python-osc
+pip install numpy open-e4-client python-osc
 ```
 
 # Usage
