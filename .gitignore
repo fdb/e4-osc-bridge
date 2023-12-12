@@ -4,5 +4,6 @@ log*.txt
 .vscode
 .xyz
 event-log.txt
-test-logs/
+logs/
 recordings/
+__pycache__/
