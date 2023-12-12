@@ -1,9 +1,14 @@
 import argparse
 import numpy as np
 
+
 def analyze_event_type(events, event_type, event_label):
     # Filter only event_type events
     filtered_events = [x for x in events if x[1] == event_type]
+    if len(filtered_events) == 0:
+        print(f"{event_label}: No events found")
+        print("--------------")
+        return
     # Calculate the average gsr value
     values = [x[2][0] for x in filtered_events]
     print(f"{event_label} Mean:", np.mean(values))
@@ -18,11 +23,11 @@ def analyze_event_type(events, event_type, event_label):
 
 
 def analyze_file(filename):
-    log_file = open(filename, 'r')
+    log_file = open(filename, "r")
     events = []
     for line in log_file:
         line = line.strip()
-        event_time, event_type, *sample = line.split(",")
+        event_time, device_id, event_type, *sample = line.split(",")
         event_time = float(event_time)
         sample = [float(x) for x in sample]
         events.append((event_time, event_type, sample))
@@ -34,11 +39,9 @@ def analyze_file(filename):
     analyze_event_type(events, "temp", "Temperature")
 
 
-
-
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Calculate statistics over the data.')
-    parser.add_argument('log_file', type=str, help='Existing log file')
+    parser = argparse.ArgumentParser(description="Calculate statistics over the data.")
+    parser.add_argument("log_file", type=str, help="Existing log file")
     args = parser.parse_args()
 
     print(args.log_file)
