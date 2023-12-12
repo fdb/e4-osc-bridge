@@ -38,10 +38,12 @@ def convert_logs(log_dir, output_file, types):
     # Sort the events by timestamp
     events = sorted(events, key=lambda x: x["dt"])
 
+    start_time = events[0]["dt"]
+
     # Write the events to the output file
     with open(output_file, "w") as record_log_file:
         for event in events:
-            dt = event["dt"]
+            dt = event["dt"] - start_time
             device_uid = event["device_uid"]
             event_type = event["type"]
             sample = event["values"]
