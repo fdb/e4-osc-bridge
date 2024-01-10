@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Counter</title>
+    <script src="https://cdn.socket.io/4.7.3/socket.io.min.js"></script>
+</head>
+
+<body>
+    <h1>WebSocket Data</h1>
+    <p>Accelerometer: <span id="acc"></span></p>
+    <p>BVP: <span id="bvp"></span></p>
+    <p>GSR: <span id="gsr"></span></p>
+    <p>Temperature: <span id="temp"></span></p>
+
+    <script>
+        const socket = io();
+
+        socket.on('connect', function () {
+            console.log('connected');
+            socket.emit('client_connected', { data: 'New client!' });
+        });
+
+        socket.on('acc', function (data) {
+            document.getElementById('acc').textContent = JSON.stringify(data);
+        });
+
+        socket.on('bvp', function (data) {
+            document.getElementById('bvp').textContent = JSON.stringify(data);
+        });
+
+        socket.on('gsr', function (data) {
+            document.getElementById('gsr').textContent = JSON.stringify(data);
+        });
+
+        socket.on('temp', function (data) {
+            document.getElementById('temp').textContent = JSON.stringify(data);
+        });
+
+    </script>
+</body>
+
+</html>
