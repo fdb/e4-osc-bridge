@@ -1,7 +1,7 @@
 import argparse
 import os
 
-VALID_TYPES = ["acc", "bvp", "temp", "gsr", "tag"]
+VALID_TYPES = ["acc", "bvp", "temp", "eda", "tag"]
 
 
 def convert_logs(log_dir, output_file, types):
@@ -17,6 +17,10 @@ def convert_logs(log_dir, output_file, types):
             print(f"File not found: {log_file}")
             continue
 
+        output_type = t
+        if t == "eda":
+            output_type = "gsr"
+
         with open(log_file, "r") as f:
             lines = list(f)
             dt = float(lines[0].split(",")[0])
@@ -29,7 +33,7 @@ def convert_logs(log_dir, output_file, types):
                     {
                         "dt": dt + index / sample_rate,
                         "device_uid": "E4",
-                        "type": t,
+                        "type": output_type,
                         "values": values,
                     }
                 )
